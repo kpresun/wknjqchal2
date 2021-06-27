@@ -11,3 +11,7 @@ app.listen(PORT, () => {
     console.log(`listening on port; ${PORT}`);
 })
 // required codes above, below server side functions.
+
+app.post('/operatoraction', (req,res) => {
+    console.log('operators made it to server');
+});
