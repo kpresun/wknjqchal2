@@ -14,27 +14,27 @@ app.listen(PORT, () => {
 // required codes above, below server side calls.
 //------------------------------------------------------//
 
-app.post('/operatorAction', (req,res) => {
-    console.log('operators made it to server');
-    let data = req.body;
-    console.log(req.body);
-    res.send(req.body);
-}
-});
 
 app.get('/operationResults', (req,res) => {
-    res.send(calculateMath)
+    res.send(results)
 })
+
+app.post('/operatorAction', (req,res) => {
+    console.log('operators made it to server');
+    let data = req.body.mathInputs;
+    calculateMath();
+
+});
+
 
 //------------------------------------------------------//
 // required calls above, below server side functions.
 //------------------------------------------------------//
 
+let results = 0;
 
-let opBtn = data[2].clickedOp;
-
-function calculateMath() {
-    switch (opBtn) {
+function calculateMath(operatorObject) {
+    switch (operatorObject.clickedOp) {
         case '+':
             return $('#num1').val() + ('#num2').val();
             break;
@@ -51,3 +51,6 @@ function calculateMath() {
         default:
             break;
     }
+    results.push(operatorObject);
+
+}
