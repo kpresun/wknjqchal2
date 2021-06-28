@@ -5,7 +5,7 @@ function onReady() {
     $('.top').on('click', '#addition', addNumbers)
     $('.top').on('click', '#subtraction', subtractNumbers)
     $('.top').on('click', '#multiplication', multiplyNumbers)
-    $('.top').on('click', '#division', dividNumbers)
+    $('.top').on('click', '#division', divideNumbers)
     $('.top').on('click', '#results', runEquation)
     $('.top').on('click', '#delete', clearEquation)
 }
@@ -14,9 +14,68 @@ let numberOne = '';
 let numberTwo = '';
 let operatorPicked = '';
 
+function addNumbers(){
+    operatorPicked = '+';
+}
+
+function subtractNumbers(){
+    operatorPicked = '-';
+}
+
+function multiplyNumbers(){
+    operatorPicked = '*';
+}
+
+function divideNumbers(){
+    operatorPicked = '/';
+}
+
+function clearEquation() {
+
+}
+
+function runEquation() {
+    let inputOne = $('#num1').val();
+    let inputTwo = $('num2').val()
+    
+    $.ajax({
+            // type
+            method: 'POST',
+            url: '/createFunction',
+            data: {
+                inputInfo:
+                inputOne,
+                inputTwo,
+                operatorPicked
+            } // data becomes req.body on the server
+        }) // good path
+        .then(function(response){
+            console.log('sent operator', response);
+            clearEquations();
+            showHistory();
+        }) // error path
+        .catch(function(response) {
+            console.log('operator failed', err);
+        })
+}
+
+function clearEquation() {
+
+}
+
+function showHistory() {
+    
+}
 
 
 
+
+
+
+
+
+
+//------------------------OLD----------------------------------//
 // function runResults() {
 // $.ajax({
 //     // type

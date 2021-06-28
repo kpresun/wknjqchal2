@@ -11,46 +11,50 @@ app.listen(PORT, () => {
 })
 
 //------------------------------------------------------//
-// required codes above, below server side calls.
+// required server codes above, below server side calls.
 //------------------------------------------------------//
 
 
-app.get('/operationResults', (req,res) => {
-    res.send(results)
-})
-
-app.post('/operatorAction', (req,res) => {
-    console.log('operators made it to server');
-    let data = req.body.mathInputs;
-    calculateMath();
-
-});
-
 
 //------------------------------------------------------//
-// required calls above, below server side functions.
+// required server calls above, below server side functions.
 //------------------------------------------------------//
 
-let results = 0;
 
-function calculateMath(operatorObject) {
-    switch (operatorObject.clickedOp) {
-        case '+':
-            return $('#num1').val() + ('#num2').val();
-            break;
-        case '-':
-            return $('#num1').val() - ('#num2').val();
-            break;
-        case '*':
-            return $('#num1').val() * ('#num2').val();
-            break;
-        case '/':
-           return  $('#num1').val() / ('#num2').val();
-            break;
+
+//------------------------------OLD-------------------------------//
+
+// app.get('/operationResults', (req,res) => {
+//     res.send(results)
+// })
+
+// app.post('/operatorAction', (req,res) => {
+//     console.log('operators made it to server');
+//     let data = req.body.mathInputs;
+//     calculateMath();
+
+// });
+
+// let results = 0;
+
+// function calculateMath(operatorObject) {
+//     switch (operatorObject.clickedOp) {
+//         case '+':
+//             return $('#num1').val() + ('#num2').val();
+//             break;
+//         case '-':
+//             return $('#num1').val() - ('#num2').val();
+//             break;
+//         case '*':
+//             return $('#num1').val() * ('#num2').val();
+//             break;
+//         case '/':
+//            return  $('#num1').val() / ('#num2').val();
+//             break;
             
-        default:
-            break;
-    }
-    results.push(operatorObject);
+//         default:
+//             break;
+//     }
+//     results.push(operatorObject);
 
-}
+// }
