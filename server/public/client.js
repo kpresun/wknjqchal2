@@ -2,10 +2,7 @@ $(document).ready(onReady);
 
 function onReady() {
     console.log('js ready');
-    $('.top').on('click', '#addition', addNumbers)
-    $('.top').on('click', '#subtraction', subtractNumbers)
-    $('.top').on('click', '#multiplication', multiplyNumbers)
-    $('.top').on('click', '#division', divideNumbers)
+    $('.operations').on('click', operatorSelect)
     $('.top').on('click', '#results', runEquation)
     $('.top').on('click', '#delete', clearEquation)
 }
@@ -14,25 +11,10 @@ let numberOne = '';
 let numberTwo = '';
 let operatorPicked = '';
 
-function addNumbers(){
-    operatorPicked = '+';
+function operatorSelect() {
+    operatorPicked = $(this).text();
 }
 
-function subtractNumbers(){
-    operatorPicked = '-';
-}
-
-function multiplyNumbers(){
-    operatorPicked = '*';
-}
-
-function divideNumbers(){
-    operatorPicked = '/';
-}
-
-function clearEquation() {
-
-}
 
 function runEquation() {
     let inputOne = $('#num1').val();
@@ -43,7 +25,6 @@ function runEquation() {
             method: 'POST',
             url: '/createFunction',
             data: {
-                inputInfo:
                 inputOne,
                 inputTwo,
                 operatorPicked
@@ -52,6 +33,7 @@ function runEquation() {
         .then(function(response){
             console.log('sent operator', response);
             clearEquations();
+            showAnswer();
             showHistory();
         }) // error path
         .catch(function(response) {
@@ -60,11 +42,17 @@ function runEquation() {
 }
 
 function clearEquation() {
+    $('#num1').val('');
+    $('#num2').val('');
+    operatorPicked = '';
+}
+
+function showAnswer() {
 
 }
 
 function showHistory() {
-    
+
 }
 
 

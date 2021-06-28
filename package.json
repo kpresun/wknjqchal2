@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/kpresun/wknjqchal2#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "body": "^5.1.0",
+    "express": "^4.17.1",
+    "parser": "^0.1.4"
   }
 }

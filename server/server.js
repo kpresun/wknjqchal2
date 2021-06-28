@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
 const PORT = 5000;
+const bodyparser = require('body-parser');
 
 app.use(express.static('server/public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(bodyParser.json());
 
 app.listen(PORT, () => {
     console.log(`listening on port; ${PORT}`);
@@ -14,7 +16,32 @@ app.listen(PORT, () => {
 // required server codes above, below server side calls.
 //------------------------------------------------------//
 
+let results = '';
 
+app.post('/createFunction', (req,res) => {
+    let data = req.body;
+
+    switch (data.operatorPicked) {
+        case '+':
+            return $('#num1').val() + ('#num2').val();
+            break;
+        case '-':
+            return $('#num1').val() - ('#num2').val();
+            break;
+        case '*':
+            return $('#num1').val() * ('#num2').val();
+            break;
+        case '/':
+            return $('#num1').val() / ('#num2').val();
+            break;
+            
+        default:
+            break;
+    }
+    results.push(data);
+    console.log(results);
+
+})
 
 //------------------------------------------------------//
 // required server calls above, below server side functions.
