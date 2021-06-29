@@ -50,12 +50,13 @@ app.post('/createFunction', (req,res) => {
         answer: answer
         });
 
-    console.log(results);
+    console.log('The results are', results);
 
 })
 
-app.get('/calculations', (req,res) => {
+app.get('/calculations', (req, res) => {
     res.send(results);
+    console.log('making it to GET, server side');
 })
 
 //------------------------------------------------------//

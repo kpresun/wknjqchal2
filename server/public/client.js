@@ -2,7 +2,7 @@ $(document).ready(onReady);
 
 function onReady() {
     console.log('js ready');
-    showHistory();
+    // showHistory(); may not need 
     $('.operations').on('click', operatorSelect)
     $('#results').on('click', runEquation)
     clearEquation();
@@ -31,8 +31,8 @@ function runEquation() {
         }) // good path
         .then(function(response){
             console.log('sent operator', response);
+            clearEquation();
             showAnswer();
-            showHistory();
         }) // error path
         .catch(function(err) {
             console.log('operator failed', err);
@@ -40,7 +40,7 @@ function runEquation() {
 }
 
 function showAnswer() {
-    console.log('made it back to the client');
+    console.log('made it back to client side');
     $.ajax({
         method: 'GET',
         url: '/calculations'
@@ -51,11 +51,9 @@ function showAnswer() {
 
         $('#history-area').empty();
         for (const computation of res) {
-            $('#history-area').append(
-                `<p>
-                    ${computation.firstNumber} ${computation.operator} ${computation.secondNumber} = ${computation.answer}
-                </p>`
-            )
+            $('#history-area').append(`
+            <p>${computation.firstNumber} ${computation.operator} ${computation.secondNumber} = ${computation.answer}</p>
+            `)
         }
     })
     .catch( res => {
@@ -65,15 +63,8 @@ function showAnswer() {
 }
 
 function clearEquation() {
-    $('#num1').empty();
-    $('#num2').empty();
+    $('.form-input').val('');
 }
-
-function showHistory() {
-
-}
-
-
 
 
 
