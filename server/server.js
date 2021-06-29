@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const PORT = 5000;
-const bodyparser = require('body-parser');
+const bodyParser = require('body-parser');
 
 app.use(express.static('server/public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.listen(PORT, () => {
@@ -16,31 +17,43 @@ app.listen(PORT, () => {
 // required server codes above, below server side calls.
 //------------------------------------------------------//
 
-let results = '';
+const results = [];
 
 app.post('/createFunction', (req,res) => {
+    console.log('Made it to server side POST');
     let data = req.body;
-
-    switch (data.operatorPicked) {
+    let operator = req.body.operatorPicked;
+    let answer;
+    switch (operator) {
         case '+':
-            return $('#num1').val() + ('#num2').val();
+            answer = Number(data.firstNumber) + Number(data.secondNumber);
             break;
         case '-':
-            return $('#num1').val() - ('#num2').val();
+            answer = data.firstNumber - data.secondNumber;
             break;
         case '*':
-            return $('#num1').val() * ('#num2').val();
+            answer = data.firstNumber * data.secondNumber;
             break;
         case '/':
-            return $('#num1').val() / ('#num2').val();
+            answer = data.firstNumber / data.secondNumber;
             break;
             
         default:
             break;
     }
-    results.push(data);
+    results.push({
+        firstNumber: Number(data.firstNumber),
+        secondNumber: Number(data.secondNumber),
+        operator: operator,
+        answer: answer
+        });
+
     console.log(results);
 
+})
+
+app.get('/calculations', (req,res) => {
+    res.send(results);
 })
 
 //------------------------------------------------------//

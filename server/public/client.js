@@ -2,32 +2,32 @@ $(document).ready(onReady);
 
 function onReady() {
     console.log('js ready');
+    showHistory();
     $('.operations').on('click', operatorSelect)
-    $('.top').on('click', '#results', runEquation)
-    $('.top').on('click', '#delete', clearEquation)
+    $('#results').on('click', runEquation)
+    $('#delete').on('click', clearEquation)
 }
 
-let numberOne = '';
-let numberTwo = '';
+let num1 = $('#num1').val();
+let num2 = $('#num2').val();
 let operatorPicked = '';
 
 function operatorSelect() {
+    console.log('successfully run operatorSelect');
     operatorPicked = $(this).text();
 }
 
 
 function runEquation() {
-    let inputOne = $('#num1').val();
-    let inputTwo = $('num2').val()
-    
+    console.log('made it to runEquation');
     $.ajax({
             // type
             method: 'POST',
             url: '/createFunction',
             data: {
-                inputOne,
-                inputTwo,
-                operatorPicked
+                firstNumber: num1,
+                secondNumber: num2,
+                operator: operatorPicked
             } // data becomes req.body on the server
         }) // good path
         .then(function(response){
@@ -36,10 +36,31 @@ function runEquation() {
             showAnswer();
             showHistory();
         }) // error path
-        .catch(function(response) {
+        .catch(function(err) {
             console.log('operator failed', err);
         })
 }
+
+$.ajax({
+    method: 'GET',
+    url: '/calculations'
+})
+.then( res => {
+    let latestAnswer = res[res.length -1];
+    $('#result-area').text(latestAnswer.results);
+
+    $('#history=area').empty();
+    for (const computation of res) {
+        $('#history=area').append(
+            `<p>
+                ${computation.firstNumber} ${computation.operator} ${computation.secondNumber} = ${computation.answer}
+            </p>`
+        )
+    }
+})
+.catch( res => {
+
+})
 
 function clearEquation() {
     $('#num1').val('');
