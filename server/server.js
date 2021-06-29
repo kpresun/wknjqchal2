@@ -24,21 +24,24 @@ app.post('/createFunction', (req,res) => {
     let data = req.body;
     let operator = req.body.operatorPicked;
     let answer;
+    // Need to add Number to data because they come back as string, need to return to legal numbers
     switch (operator) {
         case '+':
             answer = Number(data.firstNumber) + Number(data.secondNumber);
             break;
         case '-':
-            answer = data.firstNumber - data.secondNumber;
+            answer = Number(data.firstNumber) - Number(data.secondNumber);
             break;
         case '*':
-            answer = data.firstNumber * data.secondNumber;
+            answer = Number(data.firstNumber) * Number(data.secondNumber);
             break;
         case '/':
-            answer = data.firstNumber / data.secondNumber;
+            answer = Number(data.firstNumber) / Number(data.secondNumber);
             break;
             
         default:
+            res.send('Invalid operator chosen, please run again');
+            return; // advised to add return or else it will keep going to next step
             break;
     }
     results.push({
