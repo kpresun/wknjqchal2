@@ -5,11 +5,10 @@ function onReady() {
     showHistory();
     $('.operations').on('click', operatorSelect)
     $('#results').on('click', runEquation)
+    clearEquation();
     $('#delete').on('click', clearEquation)
 }
 
-// let num1 = $('#num1').val();
-// let num2 = $('#num2').val();
 let operatorPicked = '';
 
 function operatorSelect() {
@@ -32,7 +31,6 @@ function runEquation() {
         }) // good path
         .then(function(response){
             console.log('sent operator', response);
-            clearEquations();
             showAnswer();
             showHistory();
         }) // error path
@@ -41,35 +39,34 @@ function runEquation() {
         })
 }
 
-$.ajax({
-    method: 'GET',
-    url: '/calculations'
-})
-.then( res => {
-    let latestAnswer = res[res.length -1];
-    $('#result-area').text(latestAnswer.results);
+function showAnswer() {
+    console.log('made it back to the client');
+    $.ajax({
+        method: 'GET',
+        url: '/calculations'
+    })
+    .then( res => {
+        let latestAnswer = res[res.length -1];
+        $('#result-area').text(latestAnswer.results);
 
-    $('#history=area').empty();
-    for (const computation of res) {
-        $('#history=area').append(
-            `<p>
-                ${computation.firstNumber} ${computation.operator} ${computation.secondNumber} = ${computation.answer}
-            </p>`
-        )
-    }
-})
-.catch( res => {
+        $('#history-area').empty();
+        for (const computation of res) {
+            $('#history-area').append(
+                `<p>
+                    ${computation.firstNumber} ${computation.operator} ${computation.secondNumber} = ${computation.answer}
+                </p>`
+            )
+        }
+    })
+    .catch( res => {
+        console.log('Get error', res);
+    })
 
-})
-
-function clearEquation() {
-    $('#num1').val('');
-    $('#num2').val('');
-    operatorPicked = '';
 }
 
-function showAnswer() {
-
+function clearEquation() {
+    $('#num1').empty();
+    $('#num2').empty();
 }
 
 function showHistory() {
