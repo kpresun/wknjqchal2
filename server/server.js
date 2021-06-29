@@ -20,9 +20,9 @@ app.listen(PORT, () => {
 const results = [];
 
 app.post('/createFunction', (req,res) => {
-    console.log('Made it to server side POST');
+    console.log('Made it to server side POST', req.body);
     let data = req.body;
-    let operator = req.body.operatorPicked;
+    let operator = req.body.operator;
     let answer;
     // Need to add Number to data because they come back as string, need to return to legal numbers
     switch (operator) {
@@ -40,10 +40,9 @@ app.post('/createFunction', (req,res) => {
             break;
             
         default:
-            res.send('Invalid operator chosen, please run again');
-            return; // advised to add return or else it will keep going to next step
             break;
     }
+    console.log('The answer is', answer);
     results.push({
         firstNumber: Number(data.firstNumber),
         secondNumber: Number(data.secondNumber),

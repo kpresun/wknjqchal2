@@ -8,12 +8,12 @@ function onReady() {
     $('#delete').on('click', clearEquation)
 }
 
-let num1 = $('#num1').val();
-let num2 = $('#num2').val();
+// let num1 = $('#num1').val();
+// let num2 = $('#num2').val();
 let operatorPicked = '';
 
 function operatorSelect() {
-    console.log('successfully run operatorSelect');
+    console.log('successfully run operatorSelect', $(this).text());
     operatorPicked = $(this).text();
 }
 
@@ -25,9 +25,9 @@ function runEquation() {
             method: 'POST',
             url: '/createFunction',
             data: {
-                firstNumber: num1,
-                secondNumber: num2,
-                operator: operatorPicked
+                firstNumber: $('#num1').val(),
+                secondNumber: $('#num2').val(),
+                operator: operatorPicked,
             } // data becomes req.body on the server
         }) // good path
         .then(function(response){
