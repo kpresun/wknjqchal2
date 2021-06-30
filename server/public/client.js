@@ -47,13 +47,16 @@ function showAnswer() {
     })
     .then( res => {
         console.log('made it to showAnswer', res);
-        let latestAnswer = res[res.length -1];
-        $('#result-area').text(latestAnswer.results);
+        $('result-area').empty();
+        let latestAnswer = res[res.length - 1].answer;
+        $('#result-area').append(`
+            <p>${latestAnswer.results}</p>
+        `);
 
         $('#history-area').empty();
         for (const computation of res) {
             $('#history-area').append(`
-            <p>${computation.firstNumber} ${computation.operator} ${computation.secondNumber} = ${computation.answer}</p>
+                <p>${computation.firstNumber} ${computation.operator} ${computation.secondNumber} = ${computation.answer}</p>
             `)
         }
     })
@@ -64,7 +67,7 @@ function showAnswer() {
 }
 
 function clearEquation() {
-    $('.form-input').val('');
+    $('.input-form').val('');
 }
 
 
