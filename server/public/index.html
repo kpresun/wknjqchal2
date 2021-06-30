@@ -14,7 +14,7 @@
         <h1>Server side Calculator</h1>
     </header>
     <main>
-        <section class="=top" id="interactive=area">
+        <div class="top" id="interactive=area">
             <input type="text" class="input-form" id="num1">
             <button type="button" class="operations" id="addition">+</button>
             <button type="button" class="operations" id="subtraction">-</button>
@@ -23,10 +23,13 @@
             <input type="text" class="input-form" id="num2">
             <button type="button" class="return" id="results">=</button>
             <button type="button" class="deletion" id="delete">C</button>
-        </section>
-        <div class="middle" id="result-area"></div>
-        <div class="bottom" id="history-area"></div>
+        </div>
     </main>
-    <footer></footer>
+    <footer>
+        <div class="middle" id="display-area">
+            <div class="display" id="result-area"></div>
+            <div class="display" id="history-area"></div>
+        </div>
+    </footer>
 </body>
 </html>

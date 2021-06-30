@@ -30,12 +30,12 @@ function runEquation() {
             } // data becomes req.body on the server
         }) // good path
         .then(res => {
-            console.log('sent operator', response);
+            console.log('sent operator', res);
             res.sendStatus(201);
-            clearEquation();
             showAnswer();
+            clearEquation();
         }) // error path
-        .catch(function(err) {
+        .catch(err => {
             console.log('operator failed', err);
         })
 }
@@ -47,7 +47,8 @@ function showAnswer() {
         url: '/calculations'
     })
     .then( res => {
-        
+        console.log('made it to showAnswer', res);
+        res.sendStatus(201);
         let latestAnswer = res[res.length -1];
         $('#result-area').text(latestAnswer.results);
 
@@ -58,7 +59,7 @@ function showAnswer() {
             `)
         }
     })
-    .catch( res => {
+    .catch( err => {
         console.log('Get error', res);
     })
 
