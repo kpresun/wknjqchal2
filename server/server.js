@@ -50,6 +50,7 @@ app.post('/createFunction', (req,res) => {
         answer: answer
         });
 
+    res.sendStatus(201);
     console.log('The results are', results);
 
 })
