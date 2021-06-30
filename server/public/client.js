@@ -29,8 +29,9 @@ function runEquation() {
                 operator: operatorPicked,
             } // data becomes req.body on the server
         }) // good path
-        .then(function(response){
+        .then(res => {
             console.log('sent operator', response);
+            res.sendStatus(201);
             clearEquation();
             showAnswer();
         }) // error path
@@ -46,6 +47,7 @@ function showAnswer() {
         url: '/calculations'
     })
     .then( res => {
+        
         let latestAnswer = res[res.length -1];
         $('#result-area').text(latestAnswer.results);
 
