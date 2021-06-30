@@ -31,7 +31,6 @@ function runEquation() {
         }) // good path
         .then(res => {
             console.log('sent operator', res);
-            res.sendStatus(201);
             showAnswer();
             clearEquation();
         }) // error path
@@ -48,7 +47,6 @@ function showAnswer() {
     })
     .then( res => {
         console.log('made it to showAnswer', res);
-        res.sendStatus(201);
         let latestAnswer = res[res.length -1];
         $('#result-area').text(latestAnswer.results);
 
