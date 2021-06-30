@@ -49,9 +49,7 @@ function showAnswer() {
         console.log('made it to showAnswer', res);
         $('result-area').empty();
         let latestAnswer = res[res.length - 1].answer;
-        $('#result-area').append(`
-            <p>${latestAnswer.results}</p>
-        `);
+        $('#result-area').text(latestAnswer);
 
         $('#history-area').empty();
         for (const computation of res) {
